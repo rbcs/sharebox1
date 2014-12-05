@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ShareBox | <%= content_for?(:title) ? yield(:title) : "File-sharing web app" %></title>
+    <%= stylesheet_link_tag "application", "redmond/jquery-ui" %> 
+    <%= stylesheet_link_tag "application", "redmond/jquery-ui.min" %> 
+    <%= stylesheet_link_tag "application", "redmond/theme" %> 
+    <%= javascript_include_tag "jquery", "jquery-ui.min" %> 
+    <%= stylesheet_link_tag "application" %>
+    <%#= javascript_include_tag :defaults %>
+    <%= csrf_meta_tag %>
+    <%= yield(:head) %>
+    <%#= javascript_include_tag :application %>
+    <%= javascript_include_tag :rails %>
+    <style type="text/css">
+    body { 
+  background-color: #EFEFEF; 
+  font-family: "Lucida Grande","Verdana","Arial","Bitstream Vera Sans",sans-serif; 
+  font-size: 14px; 
+} 
+  
+.header_wrapper { 
+    width: 880px; 
+    margin: 0 auto; 
+    overflow:hidden; 
+    padding:20px 0; 
+} 
+.logo a{ 
+    color: #338DCF; 
+    float: left; 
+    font-size: 48px; 
+    font-weight: bold; 
+    text-shadow: 2px 2px 2px #FFFFFF; 
+    text-decoration:none; 
+} 
+#container { 
+  width: 800px; 
+  margin: 0 auto; 
+  background-color: #FFF; 
+  padding: 20px 40px; 
+  border: solid 1px #BFBFBF;   
+} 
+#login_user_status { 
+    float:right;     
+}
+    </style>
+  </head>
+  <body>
+    <div class="header_wrapper"> 
+      <div class="logo"> 
+          <%= link_to "ShareBox", root_url %> 
+      </div> 
+      <div id="login_user_status"> 
+        <% if user_signed_in? %> 
+            <%= current_user.email  %>  
+            | 
+            <%= link_to 'Sign out', '/users/sign_out', :method => :delete %> 
+        <% else %> 
+            <em>Not Signed in.</em> 
+            <%= link_to 'Sign in', new_user_session_path%> 
+            or 
+            <%= link_to 'Sign up', new_user_registration_path%> 
+        <% end %> 
+      </div>
+    </div>
+    <div id="container">
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      <% end %>
+      <%= content_tag :h1, yield(:title) if show_title? %>
+      <%= yield %>
+    </div>
+  </body>
+</html>
