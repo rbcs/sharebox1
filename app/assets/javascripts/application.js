@@ -13,5 +13,7 @@
 //= require jquery
 //= require rails
 //= require turbolinks
+//= require jquery_ujs
+//= require dropzone.min
 //= require_tree .
 

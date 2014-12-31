@@ -12,6 +12,8 @@
  *
  *= require_tree .
  *= require_self
+ *= require dropzone/dropzone
+ *= require bootstrap
  */
 
  .asset_list_header, .asset_list, .asset_details { 

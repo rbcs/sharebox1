@@ -55,7 +55,7 @@ $(document).ready(function(){
         <ul id= "top_menu">    
           <% if @current_folder %> 
           <%#debugger%>
-              <li><%= link_to "Upload", new_asset_path(@current_folder) %></li> 
+              <li><%= link_to "Upload", new_asset_path(:folder_id => @current_folder) %></li> 
               <li><%= link_to "New Folder", new_sub_folder_path(@current_folder) %></li> 
           <% else %> 
               <li><%= link_to "Upload", new_asset_path %></li> 
@@ -68,11 +68,12 @@ $(document).ready(function(){
     </div> 
     <%= render :partial => "breadcrumbs" %>
         <% @being_shared_folders.each do |folder| %> 
-          <div class="asset_details <%= folder.shared? ? 'shared_folder' : 'folder' %>" id="folder_<%= folder.id %>"> 
-              <div class="file_name"><%= link_to folder.name, browse_path(folder) %></div> 
-              <div class="file_size">-</div> 
-              <div class="file_last_updated">-</div> 
-              <div class="actions"></div> 
+          <!-- <div class="asset_details <%#= folder.shared? ? 'shared_folder' : 'folder' %>" id="folder_<%= folder.id %>">  -->
+          <div class="asset_details shared_folder<%#= folder.shared? ? 'shared_folder' : 'folder' %>" id="folder_<%= folder.id %>"> 
+            <div class="file_name"><%= link_to folder.name, browse_path(folder) %></div> 
+            <div class="file_size">-</div> 
+            <div class="file_last_updated">-</div> 
+            <div class="actions"></div> 
           </div> 
         <% end %> 
         <% @folders.each do |folder| %> 
@@ -81,28 +82,34 @@ $(document).ready(function(){
             <div class="file_size">-</div> 
             <div class="file_last_updated">-</div> 
             <div class="actions"> 
+              <div class="download"> 
+                  <%= link_to "Download", download_folder_path(folder) unless @is_this_folder_being_shared%> 
+              </div> 
               <div class="share"> 
                   <%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name unless @is_this_folder_being_shared%> 
-              </div> 
+              </div>
               <div class="rename"> 
                   <%= link_to "Rename", rename_folder_path(folder) unless @is_this_folder_being_shared%> 
               </div> 
-              <div class="delete"> 
-                  <%= link_to "Delete", folder, :confirm => 'Are you sure to delete the folder and all of its contents?', :method => :delete unless @is_this_folder_being_shared%> 
-              </div> 
+              <!-- <div class="delete"> 
+                  <%#= link_to "Delete", folder, :confirm => 'Are you sure to delete the folder and all of its contents?', :method => :delete unless @is_this_folder_being_shared%> 
+              </div> --> 
             </div>
           </div> 
         <% end %>
         <% @assets.each do |asset| %> 
-          <div class="file_name"><%= link_to asset.file_name, download_url(asset) %></div> 
+          <div class="file_name"><%= link_to asset.file_name, download_url(asset, :folderid => params[:folder_id]) %></div> 
           <div class="file_size"><%= number_to_human_size(asset.file_size, :precision => 2) %></div> 
           <div class="file_last_updated"><%= asset.uploaded_file_updated_at %></div> 
           <div class="actions"> 
             <div class="download"> 
-              <%= link_to "Download" %> 
+              <%= link_to "Download", download_path(asset, :folderid => params[:folder_id]) %> 
             </div> 
+            <div class="rename"> 
+                &nbsp;&nbsp;<%= link_to "Rename", edit_asset_path(asset)%> 
+            </div>
             <div class="delete"> 
-              <%= link_to "Delete", asset, :confirm => 'Are you sure?', :method => :delete %> 
+              &nbsp;&nbsp;<%= link_to "Delete", asset, :confirm => 'Are you sure?', :method => :delete %> 
             </div> 
           </div> 
         <% end %>

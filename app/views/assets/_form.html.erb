@@ -1,19 +1,48 @@
-<%= form_for @asset, :html => {:multipart => true} do |f| %>
-  <% if @asset.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+<script type="text/javascript">
+$(document).ready(function(){
+	// disable auto discover
+	Dropzone.autoDiscover = false;
+ 
+	// grap our upload form by its id
+	$("#new_asset").dropzone({
+		// restrict image size to a maximum 1MB
+		maxFilesize: 100,
+		// changed the passed param to one accepted by
+		// our rails app
+		paramName: "asset[uploaded_file]",
+		// show remove links on each image upload
+		addRemoveLinks: true,
+		// if the upload was successful
+		success: function(file, response){
+			// find the remove button link of the uploaded file and give it an id
+			// based of the fileID response from the server
+			$(file.previewTemplate).find('.dz-remove').attr('id', response.fileID);
+			// add the dz-success class (the green tick sign)
+			$(file.previewElement).addClass("dz-success");
+		},
+		//when the remove button is clicked
+		removedfile: function(file){
+			// grap the id of the uploaded file we set earlier
+			var id = $(file.previewTemplate).find('.dz-remove').attr('id'); 
 
-      <ul>
-      <% @asset.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-    <p> 
-        <%= f.label :uploaded_file, "File" %><br /> 
-        <%= f.file_field :uploaded_file %>
+			// make a DELETE ajax request to delete the file
+			$.ajax({
+				type: 'DELETE',
+				url: '/uploads/' + id,
+				success: function(data){
+					console.log(data.message);
+				}
+			});
+		}
+	});	
+});
+</script>
+<%= javascript_include_tag "turbolinks.js"%>
+<%= javascript_include_tag "dropzone.min.js"%>
+<%= form_for @asset, :html => {:multipart => true, class: "dropzone"} do |f| %>
+      <div class="fallback">
+        <%= f.file_field :uploaded_file %><br>
         <%= f.hidden_field :folder_id, :value => params[:folder_id] %> 
-      </p>
-  <p><%= f.submit "Upload" %></p> 
+        <%= f.submit "Upload" %>
+      </div>
 <% end %>

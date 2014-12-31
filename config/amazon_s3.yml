@@ -1,12 +1,12 @@
 development: 
-  access_key_id: AKIAIJLTXLLVF6JSIF7A 
-  secret_access_key: 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 
-  s3_host_name: 's3-us-west-2.amazonaws.com'
+  access_key_id:  
+  secret_access_key: 
+  s3_host_name: 
   
 staging: 
-  access_key_id: AKIAIJLTXLLVF6JSIF7A 
-  secret_access_key: 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  
+  access_key_id: 
+  secret_access_key: 
   
 production: 
-  access_key_id: AKIAIJLTXLLVF6JSIF7A 
-  secret_access_key: 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 
+  access_key_id: 
+  secret_access_key: 

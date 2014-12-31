@@ -10,10 +10,12 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root :to => "home#index"
-  get "assets/get/:id" => "assets#get", :as => "download"
+  get "assets/get/:id/" => "assets#get", :as => "download"
   get "browse/:folder_id" => "home#browse", :as => "browse"
   get "browse/:folder_id/new_folder" => "folders#new", :as => "new_sub_folder"
   get "browse/:id/rename" => "folders#edit", :as => "rename_folder"
+  get "folder/get/:id" => "folders#download_folder", :as => "download_folder"
+  # get "asset//rename" => "assets#edit", :as => "rename_asset"
   match "/home/share" => "home#share", via: [:get, :post]
   # root 'welcome#index'
   

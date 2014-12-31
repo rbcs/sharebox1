@@ -15,7 +15,12 @@ gem 'paperclip', github: 'thoughtbot/paperclip'
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'dropzonejs-rails'
 gem 'aws-s3'
+gem 'rubyzip'
+gem 'zip-zip'
+gem 'zippy'
 gem 'aws-sdk'
 gem 'debugger'
 gem "acts_as_tree"

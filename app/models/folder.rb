@@ -7,4 +7,5 @@ class Folder < ActiveRecord::Base
 	def shared?
 		!self.share_folders.empty?
 	end
+
 end

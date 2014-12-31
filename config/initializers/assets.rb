@@ -8,6 +8,8 @@ Rails.application.config.assets.precompile += %w( redmond/jquery-ui.min.css )
 Rails.application.config.assets.precompile += %w( redmond/theme.css )
 Rails.application.config.assets.precompile += %w( jquery-ui.min.js )
 Rails.application.config.assets.precompile += %w( jquery.js )
+Rails.application.config.assets.precompile += %w( turbolinks.js )
+Rails.application.config.assets.precompile += %w( dropzone.min.js )
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )

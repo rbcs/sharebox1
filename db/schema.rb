@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201071855) do
+ActiveRecord::Schema.define(version: 20141210133513) do
 
   create_table "assets", force: true do |t|
     t.integer  "user_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20141201071855) do
     t.integer  "user_id"
     t.string   "shared_email"
     t.integer  "shared_user_id"
-    t.integer  "folder_id"
+    t.string   "folder_id"
     t.string   "message"
     t.datetime "created_at"
     t.datetime "updated_at"
